@@ -1,0 +1,61 @@
+configuration {
+    modi: "drun,run,window"; /* Modes Rofi can use */
+    show-icons: true;
+    icon-theme: "Papirus-Dark"; /* Or your preferred icon theme e.g., Papirus, Numix */
+    font: "Ubuntu Regular 12";  /* Use a font you like, consistent with your i3 font */
+    terminal: "i3-sensible-terminal"; /* Terminal Rofi should use if an app needs it */
+    drun-display-format: "{name}"; /* How applications are displayed in drun mode */
+
+    /* You can add many other Rofi specific settings here */
+    /* For example: */
+    /* location: 0; */
+    /* yoffset: 0; */
+    /* xoffset: 0; */
+    /* fixed-num-lines: true; */
+    /* lines: 10; */
+    /* columns: 1; */
+    /* width: 50; */
+}
+
+/* Import the pywal generated theme */
+/* Make sure this path points to the .rasi file pywal generates in ~/.cache/wal/ */
+@theme "~/.cache/wal/colors-rofi-dark.rasi"
+
+window {
+    background-color: @background; /* Ensure main window background is pywal's dark bg */
+    padding: 10px; /* Optional: add some padding to the main rofi window */
+}
+
+element {
+    padding: 8px; /* Padding for each list item */
+    spacing: 5px;
+    border:  0px; /* Ensure no extra borders that might confuse colors */
+}
+
+/* Style for normal (non-selected) list items */
+element normal normal, element alternate normal {
+    background-color: @background; /* Use pywal's main dark background */
+    text-color:       @foreground; /* Use pywal's main light foreground */
+}
+
+/* Style for text within any element (fallback if not more specific) */
+element-text {
+    background-color: inherit; /* Inherit from the element's background */
+    text-color:       inherit; /* Inherit from the element's text color (which we set above for normal) */
+    vertical-align: 0.5;
+}
+
+/* Style for selected list item */
+element selected {
+    background-color: @selected-normal-background; /* This is usually an accent color from pywal (e.g., color1 or color4) */
+    text-color:       @selected-normal-foreground; /* This should contrast with selected-normal-background (often pywal's dark background or light foreground) */
+    border-radius:    0px; /* Optional: remove border radius if pywal adds it and you don't like it */
+}
+
+/* If pywal's selected-normal-foreground is also not visible on selected-normal-background,
+   you might need to override it too, for example:
+element selected {
+    background-color: @color4; // Example: use pywal's color4 as selected BG
+    text-color:       @background; // Use pywal's main dark BG as text for contrast
+}
+*/
