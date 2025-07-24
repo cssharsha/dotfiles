@@ -29,6 +29,8 @@ exec_always --no-startup-id xset s noblank
 # NetworkManager applet
 exec --no-startup-id nm-applet
 
+exec --no-startup-id lxpolkit
+
 # Custom screen layout
 exec_always --no-startup-id ~/.screenlayout/home.sh
 
@@ -146,10 +148,10 @@ set $ws9 "9"
 set $ws10 "10"
 
 # Assign workspaces to specific outputs (monitors)
-# Adjust DP-2 and HDMI-0 to your actual monitor identifiers if needed
-workspace $ws1 output DP-2
-workspace $ws3 output DP-2
-workspace $ws5 output DP-2
+# Adjust DP-0 and HDMI-0 to your actual monitor identifiers if needed
+workspace $ws1 output DP-0
+workspace $ws3 output DP-0
+workspace $ws5 output DP-0
 
 workspace $ws2 output HDMI-0
 workspace $ws4 output HDMI-0
@@ -224,6 +226,9 @@ bindsym $mod+x exec --no-startup-id ~/.config/i3/lock.sh
 
 # Refresh pywal theme
 bindsym $mod+Shift+w exec --no-startup-id wal -R &
+
+# Toggle floating application window
+bindsym $mod+c exec --no-startup-id ~/.config/i3/toggle_floating_app.sh
 
 #-------------------------------------------------------------------------------
 # Appearance: Gaps and Borders (Catppuccin Mocha theme)
