@@ -10,15 +10,15 @@ echo "--- Polybar Launch Script Started at $(date) ---" | tee -a "${LAUNCH_LOG}"
 
 # Terminate already running bar instances
 echo "Terminating existing Polybar instances..." | tee -a "${LAUNCH_LOG}"
-killall -q polybar
+pkill -f "polybar --reload" || true
 # Wait until the processes have been shut down
-while pgrep -x polybar >/dev/null; do
+while pgrep -f "polybar --reload" >/dev/null; do
     echo "Waiting for existing Polybar instances to shut down..." | tee -a "${LAUNCH_LOG}"
     sleep 0.5
 done
 echo "All Polybar instances terminated." | tee -a "${LAUNCH_LOG}"
 
-PRIMARY_MONITOR="DP-2" # Your primary monitor
+PRIMARY_MONITOR="DP-0" # Your primary monitor
 
 if type "xrandr" >/dev/null 2>&1; then
   MONITOR_LIST=$(xrandr --query | grep " connected" | cut -d" " -f1)
