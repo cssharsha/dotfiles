@@ -29,6 +29,8 @@ exec_always --no-startup-id xset s noblank
 # NetworkManager applet
 exec --no-startup-id nm-applet
 
+exec --no-startup-id lxpolkit
+
 # Custom screen layout
 exec_always --no-startup-id ~/.screenlayout/home.sh
 
@@ -45,8 +47,8 @@ exec_always --no-startup-id picom --config ~/.config/picom/picom.conf &
 # Volume control (using pactl)
 #-------------------------------------------------------------------------------
 # set $refresh_i3status killall -SIGUSR1 i3status # Note: This is for i3status, not Polybar
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -146,10 +148,10 @@ set $ws9 "9"
 set $ws10 "10"
 
 # Assign workspaces to specific outputs (monitors)
-# Adjust DP-2 and HDMI-0 to your actual monitor identifiers if needed
-workspace $ws1 output DP-2
-workspace $ws3 output DP-2
-workspace $ws5 output DP-2
+# Adjust DP-0 and HDMI-0 to your actual monitor identifiers if needed
+workspace $ws1 output DP-0
+workspace $ws3 output DP-0
+workspace $ws5 output DP-0
 
 workspace $ws2 output HDMI-0
 workspace $ws4 output HDMI-0
@@ -220,10 +222,14 @@ bindsym $mod+r mode "resize"
 #-------------------------------------------------------------------------------
 
 # Lock screen
-bindsym $mod+x exec --no-startup-id ~/.config/i3/lock.sh
+# bindsym $mod+x exec --no-startup-id ~/.config/i3/lock.sh
+bindsym $mod+x exec --no-startup-id ~/.config/i3/locki3.sh
 
 # Refresh pywal theme
 bindsym $mod+Shift+w exec --no-startup-id wal -R &
+
+# Toggle floating application window
+bindsym $mod+c exec --no-startup-id ~/.config/i3/toggle_floating_app.sh
 
 #-------------------------------------------------------------------------------
 # Appearance: Gaps and Borders (Catppuccin Mocha theme)
